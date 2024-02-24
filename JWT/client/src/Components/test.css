@@ -1,0 +1,10 @@
+body{
+    color: aqua;
+    cursor: pointer;
+    background: aqua;
+    height: 80%;
+    width: 50%;
+    padding: 30px;
+    font-weight: 600;
+
+}
