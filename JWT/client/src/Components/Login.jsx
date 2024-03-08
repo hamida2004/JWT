@@ -56,7 +56,6 @@ const Login = (props) => {
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
-  const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [Err, setErr] = useState([]);
 
@@ -85,7 +84,8 @@ const Login = (props) => {
         console.log(response);
       }
     } catch (err) {
-      setErr(err.response.data.error);
+      console.log(err);
+      // setErr(err.response.data.error);
     }
   };
 

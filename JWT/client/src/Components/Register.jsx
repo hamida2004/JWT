@@ -86,7 +86,8 @@ const Register = (props) => {
         console.log(Err);
       }
     } catch (err) {
-      setErr(err.response.data.error);
+      console.log(err);
+      //setErr(err.response.data.error);
     }
   };
 

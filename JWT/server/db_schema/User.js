@@ -23,11 +23,17 @@ const userSchema = new mongoose.Schema({
     required: true,
     
   },
+  // the token have the email encoded , by the email we access the roles and return them to the user 
+  //based on them the client side give permission
   token: {
     type: String,
     default : ""
     // You can add any other validations or default values for the token field if needed
   },
+  roles: {
+    type: [String], // Array of role IDs
+    default: ['001'] // Default role ID for customer
+  }
 });
 
 userSchema.pre("save", async function (next) {

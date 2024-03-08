@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
 
 function Home() {
     const navigate = useNavigate();
@@ -28,19 +29,21 @@ function Home() {
     }, []);
 
     return (
-        <div>
-            
-            {data.length > 0 ? (
-                data.map((user, index) => ( // Adding unique key prop to each element
+        <div>            
+            {data?.length > 0 ? (
+                <>
+                {/* {data.map((user, index) => ( // Adding unique key prop to each element
                     <div key={index}>
                         <h1>{user.name}</h1>
                         <h2>{user.email}</h2>
                     </div>
-                ))
+                ))} */}
+                <div>hello costemer</div>
+                <button onClick={logout}>logout</button>
+                </>
             ) : (
                 <p>Loading ...</p>
             )}
-            <button onClick={logout}>logout</button>
         </div>
     );
 }

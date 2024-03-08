@@ -6,6 +6,7 @@ const cookieParser = require("cookie-parser");
 const verify = require("./midlewares/verifyJWT");
 const app = express();
 const User = require("./db_schema/User");
+const Role = require("./db_schema/Role");
 
 app.use(express.json());
 app.use(cookieParser());
@@ -18,16 +19,18 @@ app.use('/refresh', require('./routers/refreshRouter'))
 app.use("/auth", require("./routers/authRouter"));
 app.get('/logout' , require('./controllers/authController').logout)
 app.get("/", async (req, res) => {
+  const roles = await Role.find();
+  console.log(roles)
   const users = await User.find()
+  console.log(users)
   res.status(200).json({users})
 });
 
 //protected route
 app.get("/protected", verify, async (req, res) => {
   const user = req.user;
-  console.log(user);
-  // const userFound = await User.findOne({ email: user?.user });
-  // res.send(userFound);
+  const userFound = await User.findOne({ email: user?.user });
+  res.send(userFound.roles);
 });
 
 // database connection
