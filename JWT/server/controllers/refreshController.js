@@ -15,7 +15,7 @@ const refresh = async (req , res) => {
             { user: foundUser.email },
             process.env.ACCESS_TOKEN_KEY,
             {
-              expiresIn: "300s",
+              expiresIn: "1m",
             }
           );
         res.json({ accessToken });

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import styled from 'styled-components';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import styled from "styled-components";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const HeroSection = styled.div`
   height: 80vh;
@@ -36,16 +36,14 @@ const Button = styled.button`
   border: none;
 `;
 const Error = styled.p`
-color : red
-`
-
+  color: red;
+`;
 
 const Input = styled.input`
   width: 100%;
   padding: 10px;
   outline: none;
-  border: 
-  1px solid #2a1091;
+  border: 1px solid #2a1091;
   border-radius: 5px;
   margin-bottom: 20px;
 `;
@@ -55,58 +53,58 @@ const H1 = styled.h1`
 `;
 
 const Register = (props) => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-  const [email, setEmail] = useState('');
-  const [name, setName] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+  const [password, setPassword] = useState("");
   const [Err, setErr] = useState([]);
-  
+
   const handleClick = async (e) => {
     e.preventDefault();
-    setErr('')
+    setErr("");
     let response;
     console.log("clicked");
-     try{
-      response = await axios.post("http://localhost:5050/auth/register", {
-        name,
-        email,
-        password
-      });
-      console.log(response.status)
+    try {
+      response = await axios.post(
+        "http://localhost:5050/auth/register",
+        {
+          name,
+          email,
+          password,
+        },
+        {
+          withCredentials: true,
+        }
+      );
+      console.log(response.status);
       console.log(response);
-      navigate('/login');
-      if(response.data.error ){
-        console.log(response.data.error)
-        setErr(response.data.error)
-      console.log(Err);
-
-    
-        
+      navigate("/login");
+      if (response.data.error) {
+        console.log(response.data.error);
+        setErr(response.data.error);
+        console.log(Err);
+      }
+    } catch (err) {
+      setErr(err.response.data.error);
     }
-     }catch(err){
-      setErr(err.response.data.error)
-     }
-    
-    
   };
-  
+
   return (
     <HeroSection>
       <H1>"SIGNUP FORM"</H1>
       <Form>
-        
-          <Input
-            type="text"
-            required
-            placeholder="enter your name"
-            name="name"
-            value={name} // Use 'value' to bind the input to the 'name' state
-            onChange={(e) => {
-              setName(e.target.value);
-            }}
-          />
-        
+        <Input
+          type="text"
+          required
+          placeholder="enter your name"
+          name="name"
+          value={name} // Use 'value' to bind the input to the 'name' state
+          onChange={(e) => {
+            setName(e.target.value);
+          }}
+        />
+
         <Input
           type="email"
           name="email"
@@ -128,9 +126,7 @@ const Register = (props) => {
           }}
         />
         <Button onClick={handleClick}>submit</Button>
-        {Err && 
-           <Error >{Err}</Error>
-        }
+        {Err && <Error>{Err}</Error>}
       </Form>
     </HeroSection>
   );

@@ -33,7 +33,7 @@ const loginUser = async (req, res) => {
       { user: user.email },
       process.env.ACCESS_TOKEN_KEY,
       {
-        expiresIn: "10m",
+        expiresIn: "1m",
       }
     );
     // generate refresh token
@@ -53,7 +53,9 @@ const loginUser = async (req, res) => {
     // it won't appear in the cookies in the clien t side 'cause it's httpOnly 
     res.cookie("token", refreshToken, {
       maxAge:  30 * 24 * 60 * 60 * 1000,
-      httpOnly: true,
+      // httpOnly: true,
+      path: '/', // Set cookie to be valid for all paths
+      domain: 'localhost' 
     });
    
     // send acess token to the client side
@@ -75,7 +77,7 @@ const logout = async (req , res) => {
   if (!foundUser) {
     res.clearCookie("token", {
       maxAge:  30 * 24 * 60 * 60 * 1000,
-      httpOnly: true,
+      // httpOnly: true,
       
     })
     res.status(204).json({msg: 'log out successfully '})
@@ -86,7 +88,7 @@ const logout = async (req , res) => {
   );
   res.clearCookie("token", {
     maxAge:  30 * 24 * 60 * 60 * 1000,
-    httpOnly: true,
+    // httpOnly: true,
    
   })
   res.status(200).json({msg: 'log out successfully '})

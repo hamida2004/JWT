@@ -9,7 +9,10 @@ const User = require("./db_schema/User");
 
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:3000',
+  credentials: true
+}));
 const PORT = process.env.PORT || 5000;
 app.use('/refresh', require('./routers/refreshRouter'))
 app.use("/auth", require("./routers/authRouter"));
@@ -23,8 +26,8 @@ app.get("/", async (req, res) => {
 app.get("/protected", verify, async (req, res) => {
   const user = req.user;
   console.log(user);
-  const userFound = await User.findOne({ email: user.user });
-  res.send(userFound);
+  // const userFound = await User.findOne({ email: user?.user });
+  // res.send(userFound);
 });
 
 // database connection
